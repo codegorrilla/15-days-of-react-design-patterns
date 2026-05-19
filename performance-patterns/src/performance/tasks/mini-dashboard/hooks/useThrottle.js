@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
-export function useThrottle(value, delay = 300) {
+export const useThrottle = (value, delay = 300) => {
   const [throttledValue, setThrottledValue] = useState(value);
 
   const lastExecuted = useRef(Date.now());
@@ -11,7 +11,6 @@ export function useThrottle(value, delay = 300) {
         const now = Date.now();
 
         if (now - lastExecuted.current >= delay) {
-          console.log("Do DOM manipulation");
           setThrottledValue(value);
           lastExecuted.current = now;
         }
@@ -23,4 +22,4 @@ export function useThrottle(value, delay = 300) {
   }, [value, delay]);
 
   return throttledValue;
-}
+};
